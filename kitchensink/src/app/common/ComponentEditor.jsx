@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+import { ThemeProvider } from '@osag/pyrene';
+
 import '../../css/componentPage.css';
 import CodeBlock from './CodeBlock';
 import Utils from './Utils';
@@ -8,7 +11,6 @@ import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
 import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
 import ParentButton from './PageElements/ParentButton/ParentButton';
-import { ThemeProvider } from '@osag/pyrene';
 
 export default class ComponentEditor extends React.Component {
 
@@ -103,7 +105,7 @@ export default class ComponentEditor extends React.Component {
             <div styleName={classNames('pin', { pinned })} onClick={() => this.handlePinClick()} />
             <div styleName={classNames('sun', { darkMode })} onClick={() => this.handleSunClick()} />
             <div styleName="componentDisplay">
-              <ThemeProvider colors={{text: this.state.darkMode ?  '#dbe7ff' : '#1d273b'}}>
+              <ThemeProvider colors={{ text: this.state.darkMode ? '#dbe7ff' : '#1d273b' }}>
                 {this.props.examples.trigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
               </ThemeProvider>
             </div>
