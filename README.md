@@ -1,4 +1,4 @@
-![pyrene](kitchensink/src/images/pyrene.svg)
+<p align="center"><a href="https://open-ch.github.io/pyrene/" target="_blank" rel="noopener noreferrer"><img src="https://github.com/open-ch/pyrene/raw/main/kitchensink/src/images/pyrene.svg" alt="Pyrene"></a></p>
 
 # pyrene - Open Systems Component Library
 
