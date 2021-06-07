@@ -1,12 +1,17 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './button.css';
+import styles from './button.css';
 import Loader from '../Loader/Loader';
 
 export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
+export type ActionType = 'button' | 'submit' | 'reset';
 
 export interface ButtonProps {
+  /**
+   * Sets the type attribute.
+   */
+  actionType?: ActionType,
   /**
    * Disables any interaction with the component.
    */
@@ -41,6 +46,7 @@ export interface ButtonProps {
  * Instead, use Links because it takes the user to a new page and is not associated with an action.
  */
 const Button: React.FC<ButtonProps> = ({
+  actionType = 'submit',
   disabled = false,
   icon,
   loading = false,
@@ -48,25 +54,25 @@ const Button: React.FC<ButtonProps> = ({
   onClick = () => null,
   label,
 }: ButtonProps) => (
-  <div styleName="buttonContainer">
+  <div className={styles.buttonContainer}>
     <button
-      type="submit"
-      className="unSelectable"
-      styleName={
-        classNames('button',
-          { [`type-${type}`]: true },
-          { disabled: disabled },
-          { loading: loading })
+      // eslint-disable-next-line react/button-has-type
+      type={actionType}
+      className={
+        clsx('unSelectable', styles.button,
+          styles[`type-${type}`],
+          { [styles.disabled]: disabled },
+          { [styles.loading]: loading })
       }
       onClick={onClick}
       disabled={disabled}
     >
-      {icon && <span styleName="icon" className={`pyreneIcon-${icon}`} />}
-      <span styleName="label">{label}</span>
+      {icon && <span className={clsx(styles.icon, `pyreneIcon-${icon}`)} />}
+      <span className={styles.label}>{label}</span>
     </button>
     {loading && ((type === 'primary' || type === 'danger' || type === 'success')
-      ? <span styleName="loader"><Loader size="small" styling="light" /></span>
-      : <span styleName="loader"><Loader size="small" styling="dark" /></span>)}
+      ? <span className={styles.loader}><Loader size="small" styling="light" /></span>
+      : <span className={styles.loader}><Loader size="small" styling="dark" /></span>)}
   </div>
 );
 

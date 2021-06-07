@@ -6,7 +6,7 @@ import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import TimeSeriesLineChartSVG from './TimeSeriesLineChartSVG';
 import colorSchemes from '../../styles/colorSchemes';
-import './timeSeriesLineChart.css';
+import styles from './timeSeriesLineChart.css';
 import { getDataInTimeRange } from '../../common/dataUtils';
 
 /**
@@ -24,7 +24,7 @@ export default class TimeSeriesLineChart extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.loading && !this.props.loading) {
-      // The following lint is disabled because otherwise it will not pass the build
+      // The react/no-did-update-set-state rule does not apply here because the setState, guarded by an if-statement, is a valid usage in componentDidUpdate
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState(() => ({
         dataDeselected: this.props.data.map((d) => (d.deselected)),
@@ -61,7 +61,7 @@ export default class TimeSeriesLineChart extends React.Component {
       <ChartOverlay>
         {this.props.loading && <Loader type="inline" />}
         {!this.props.loading && !hasDataInRange && (
-          <div styleName="errorBanner">
+          <div className={styles.errorBanner}>
             <Banner styling="inline" type="error" label={this.props.error} />
           </div>
         )}

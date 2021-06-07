@@ -1,9 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import selectStyle from './selectStyle';
-import './select.css';
+import styles from './select.css';
 import Loader from '../Loader/Loader';
 import CustomOption from './CustomOption';
 import { SingleSelectGroupedOption, SingleSelectOption } from './SingleSelectTypes';
@@ -77,7 +77,7 @@ export type SingleSelectProps<ValueType> = {
   /**
    * Event Handler. Param option: {value: , label:}
    */
-  onChange?: (option: SingleSelectOption<ValueType>, evt: {target: {type: string; name: string; value: any;}}) => void;
+  onChange?: (option: SingleSelectOption<ValueType>, evt: { target: { type: string; name: string; value: any; } }) => void;
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -129,7 +129,7 @@ const getOptionsObj = <ValueType extends unknown>(options: SingleSelectOption<Va
 
 };
 
-const defaultFilterOption = <ValueType extends unknown>(option: {label: string, value?: string, data: SingleSelectOption<ValueType>}, rawInput: string): boolean => {
+const defaultFilterOption = <ValueType extends unknown>(option: { label: string, value?: string, data: SingleSelectOption<ValueType> }, rawInput: string): boolean => {
   const lowerInput = rawInput.toLowerCase();
   const values = [
     option.value ? option.value.toString() : null,
@@ -172,8 +172,8 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
   return (
-    <div styleName={classNames('selectContainer', { disabled: disabled })}>
-      {title && <div styleName={classNames('selectTitle', { required: required && !disabled })}>{title}</div>}
+    <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
+      {title && <div className={clsx(styles.selectTitle, { [styles.required]: (required && !disabled) })}>{title}</div>}
 
       {creatable
         ? (
@@ -255,8 +255,8 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
 
       {invalid && invalidLabel && !disabled
         ? (
-          <div styleName="invalidLabel">
-            <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+          <div className={styles.invalidLabel}>
+            <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
             {invalidLabel}
           </div>
         )
@@ -264,7 +264,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
           <>
             {helperLabel
               && (
-                <div styleName="selectHelper">
+                <div className={styles.selectHelper}>
                   {helperLabel}
                 </div>
               )}
